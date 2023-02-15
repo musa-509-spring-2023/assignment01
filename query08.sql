@@ -9,7 +9,19 @@
 */
 
 -- Enter your SQL query here
+With newt as
+(SELECT * FROM  indego.trips_2021_q3
+UNION ALL
+SELECT * FROM  indego.trips_2022_q3)
 
+SELECT start_station as station_id,
+ST_SetSRID(ST_MakePoint(start_lon, start_lat),4326) as station_geog,
+count(*) as num_trips
+FROM newt
+WHERE EXTRACT(HOUR FROM start_time) >= 7 AND EXTRACT(HOUR FROM start_time) < 10
+GROUP BY start_station, start_lat, start_lon
+ORDER BY num_trips DESC
+LIMIT 5
 
 /*
     Hint: Use the `EXTRACT` function to get the hour of the day from the

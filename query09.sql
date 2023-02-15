@@ -7,3 +7,14 @@
 */
 
 -- Enter your SQL query here
+WITH groupp 
+as 
+(SELECT * FROM  indego.trips_2021_q3
+UNION ALL
+SELECT * FROM  indego.trips_2022_q3)
+
+SELECT 
+groupp.passholder_type as passholder_type,
+count(*) as num_trips
+FROM groupp
+GROUP BY passholder_type 

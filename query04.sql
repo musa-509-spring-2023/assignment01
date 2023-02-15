@@ -6,3 +6,5 @@
 */
 
 -- Enter your SQL query here
+SELECT round(avg(duration),2) as avg_duration
+FROM indego.trips_2022_q3

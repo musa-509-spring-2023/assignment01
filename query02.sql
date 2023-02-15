@@ -10,6 +10,21 @@
 */
 
 -- Enter your SQL query here
+WITH num_2021
+as
+(SELECT count(*) as total_2021
+ FROM indego.trips_2021_q3
+),
+num_2022
+as
+(SELECT count(*) as total_2022
+ FROM indego.trips_2022_q3
+)
+SELECT 
+round((CAST(num_2022.total_2022 AS numeric) - 
+	   CAST(num_2021.total_2021 AS numeric))*100/ CAST(total_2021 AS numeric),2) 
+	   || '%' as perc_change
+FROM num_2021,num_2022;
 
 
 
